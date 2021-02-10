@@ -7,7 +7,8 @@ import socketIOClient from "socket.io-client";
  
 import {connect} from 'react-redux';
 
-var socket = socketIOClient("http://192.168.1.15:3000");
+// Pensez à changer l'adresse ci-dessous avec votre IP locale !
+var socket = socketIOClient("http://172.17.1.68:3000");
 
 function ChatScreen(props) {
   
@@ -18,7 +19,7 @@ function ChatScreen(props) {
     socket.on('sendMessageToAll', (newMessageData)=> {
       setListMessage([...listMessage, newMessageData]);
     });
-  }, [listMessage]) 
+  }, [listMessage]);
 
   var listMessageItem = listMessage.map((messageData, i)=>{
     
@@ -28,16 +29,20 @@ function ChatScreen(props) {
 
     var msg = msg.replace(/[a-z]*fuck[a-z]*/gi, '\u2022\u2022\u2022');
 
-    return <ListItem 
-      title={msg} 
-      subtitle={messageData.pseudo}
-    />
+    return (
+      <ListItem>
+        <ListItem.Content>
+          <ListItem.Title>{msg}</ListItem.Title>
+          <ListItem.Subtitle>{messageData.pseudo}</ListItem.Subtitle>
+        </ListItem.Content>
+      </ListItem>
+    );
   });
 
   return (
     <View style={{flex:1}}>
        
-        <ScrollView  style={{flex:1, marginTop: 15}}>
+        <ScrollView style={{flex:1, marginTop: 50}}>
           
           {listMessageItem}
 
@@ -62,6 +67,7 @@ function ChatScreen(props) {
                 buttonStyle={{backgroundColor: "#eb4d4b"}}
                 type="solid"
                 onPress={()=> {
+                  console.log(currentMessage, props.pseudo);
                   socket.emit("sendMessage", {message: currentMessage, pseudo: props.pseudo} ); 
                   setCurrentMessage('');
                  }

@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {connect} from 'react-redux';
 
-function HomeScreen({ navigation, onSubmitPseudo }) {
+function HomeScreen(props) {
     const [pseudo, setPseudo] = useState('');
     
     return (
@@ -37,7 +37,7 @@ function HomeScreen({ navigation, onSubmitPseudo }) {
 
             title="Go to Map"
             type="solid"
-            onPress={() => {onSubmitPseudo(pseudo); navigation.navigate('Map')}}
+            onPress={() => {props.onSubmitPseudo(pseudo); props.navigation.navigate('BottomNavigator', { screen: 'Map' })}}
         />
 
     </ImageBackground>
