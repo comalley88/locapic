@@ -67,7 +67,7 @@ function ChatScreen(props) {
                 buttonStyle={{backgroundColor: "#eb4d4b"}}
                 type="solid"
                 onPress={()=> {
-                  console.log(currentMessage, props.pseudo);
+                  console.log(`${props.pseudo}: ${currentMessage}`);
                   socket.emit("sendMessage", {message: currentMessage, pseudo: props.pseudo} ); 
                   setCurrentMessage('');
                  }
