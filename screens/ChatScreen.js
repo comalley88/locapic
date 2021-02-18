@@ -30,7 +30,7 @@ function ChatScreen(props) {
     var msg = msg.replace(/[a-z]*fuck[a-z]*/gi, '\u2022\u2022\u2022');
 
     return (
-      <ListItem>
+      <ListItem key={i}>
         <ListItem.Content>
           <ListItem.Title>{msg}</ListItem.Title>
           <ListItem.Subtitle>{messageData.pseudo}</ListItem.Subtitle>
@@ -48,7 +48,7 @@ function ChatScreen(props) {
 
         </ScrollView >
 
-        <KeyboardAvoidingView behavior="padding" enabled>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <Input
                 containerStyle = {{marginBottom: 5}}
                 placeholder='Your message'
@@ -67,7 +67,6 @@ function ChatScreen(props) {
                 buttonStyle={{backgroundColor: "#eb4d4b"}}
                 type="solid"
                 onPress={()=> {
-                  console.log(`${props.pseudo}: ${currentMessage}`);
                   socket.emit("sendMessage", {message: currentMessage, pseudo: props.pseudo} ); 
                   setCurrentMessage('');
                  }
