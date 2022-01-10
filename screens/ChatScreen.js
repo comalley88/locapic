@@ -8,7 +8,7 @@ import socketIOClient from "socket.io-client";
 import {connect} from 'react-redux';
 
 // Pensez à changer l'adresse ci-dessous avec votre IP locale !
-var socket = socketIOClient("http://192.168.1.15:3000");
+var socket = socketIOClient("https://chat-websocket-lacapsule.herokuapp.com/");
 
 function ChatScreen(props) {
   
